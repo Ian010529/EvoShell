@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/BearCode.iml" filepath="$PROJECT_DIR$/.idea/BearCode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/EvoShell.iml" filepath="$PROJECT_DIR$/.idea/EvoShell.iml" />
     </modules>
   </component>
 </project>

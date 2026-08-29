@@ -27,21 +27,9 @@ def _safe_stdout_write(text: object) -> None:
     sys.stdout.flush()
 
 
-COOKIE_BEAR = r"""
-        _     _
-      _( )___( )_
-     /  o     o  \
-    |      ^      |
-    |   \_____/   |
-     \  .-.-.    /
-      '-.....---'
-"""
-
-
 def print_welcome() -> None:
-    title = Text("Bear Code", style="bold #f6c177")
-    subtitle = Text("Evolvable Coding Agent CLI", style="bold cyan")
-    cookie = Text(COOKIE_BEAR, style="bold #d19a66")
+    title = Text("EvoShell", style="bold #f6c177")
+    subtitle = Text("Self-Evolving Coding Agent Runtime", style="bold cyan")
 
     commands = Table.grid(padding=(0, 2))
     commands.add_column(style="bold cyan", no_wrap=True)
@@ -55,7 +43,6 @@ def print_welcome() -> None:
     commands.add_row("exit", "quit the session")
 
     body = Table.grid()
-    body.add_row(Align.center(cookie))
     body.add_row(Align.center(title))
     body.add_row(Align.center(subtitle))
     body.add_row("")
@@ -64,7 +51,7 @@ def print_welcome() -> None:
     console.print()
     console.print(Panel(
         body,
-        title="[bold #f6c177] bear cookie ready [/bold #f6c177]",
+        title="[bold #f6c177] runtime ready [/bold #f6c177]",
         subtitle="[dim]Type your request below[/dim]",
         border_style="#d19a66",
         box=box.ROUNDED,
@@ -74,7 +61,7 @@ def print_welcome() -> None:
 
 
 def print_user_prompt() -> None:
-    console.print("\n[bold #f6c177]Bear[/bold #f6c177][bold cyan]Code[/bold cyan] [dim]❯[/dim] ", end="")
+    console.print("\n[bold #f6c177]Evo[/bold #f6c177][bold cyan]Shell[/bold cyan] [dim]❯[/dim] ", end="")
 
 
 def print_assistant_text(text: str) -> None:

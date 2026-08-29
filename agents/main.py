@@ -41,8 +41,8 @@ from .online_skill_eval import format_online_skill_eval_async
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        prog="mini-claude",
-        description="Bear Code — a minimal coding agent",
+        prog="evoshell",
+        description="EvoShell — a self-evolving coding agent runtime",
         add_help=False,
     )
     parser.add_argument("prompt", nargs="*", help="One-shot prompt")
@@ -96,11 +96,19 @@ def _is_anthropic_compatible_base_url(base_url: str | None) -> bool:
 
 
 def _resolve_api_config(cli_api_base: str | None) -> tuple[str | None, str | None, bool]:
-    generic_api_key = _clean_env(os.environ.get("APIKEY")) or _clean_env(os.environ.get("MINI_CLAUDE_API_KEY"))
+    generic_api_key = (
+        _clean_env(os.environ.get("APIKEY"))
+        or _clean_env(os.environ.get("EVOSHELL_API_KEY"))
+        or _clean_env(os.environ.get("MINI_CLAUDE_API_KEY"))
+    )
     openai_api_key = _clean_env(os.environ.get("OPENAI_API_KEY"))
     anthropic_api_key = _clean_env(os.environ.get("ANTHROPIC_API_KEY"))
 
-    generic_api_base = _clean_env(os.environ.get("API")) or _clean_env(os.environ.get("MINI_CLAUDE_API_BASE"))
+    generic_api_base = (
+        _clean_env(os.environ.get("API"))
+        or _clean_env(os.environ.get("EVOSHELL_API_BASE"))
+        or _clean_env(os.environ.get("MINI_CLAUDE_API_BASE"))
+    )
     openai_api_base = _clean_env(os.environ.get("OPENAI_BASE_URL"))
     anthropic_api_base = _clean_env(os.environ.get("ANTHROPIC_BASE_URL"))
 
@@ -330,9 +338,9 @@ def main() -> None:
     _load_env_file()
 
     if args.help:
-        # 自定义帮助文本，展示 Bear Code 支持的启动参数和 REPL 内置命令。
+        # 自定义帮助文本，展示 EvoShell 支持的启动参数和 REPL 内置命令。
         print("""
-Usage: bear-code [options] [prompt]
+Usage: python -m agents.main [options] [prompt]
 
 Options:
   --yolo, -y          Skip all confirmation prompts (bypassPermissions mode)
@@ -363,14 +371,12 @@ REPL commands:
   /<skill-name>       Invoke a skill (e.g. /commit "fix types")
 
 Examples:
-  mini-claude "fix the bug in src/app.ts"
-  mini-claude --yolo "run all tests and fix failures"
-  mini-claude --plan "how would you refactor this?"
-  mini-claude --max-cost 0.50 --max-turns 20 "implement feature X"
-  MODEL=deepseek-chat APIKEY=sk-xxx API=https://api.deepseek.com/anthropic mini-claude "hello"
-  MODEL=gpt-4o OPENAI_API_KEY=sk-xxx OPENAI_BASE_URL=https://aihubmix.com/v1 mini-claude "hello"
-  mini-claude --resume
-  mini-claude  # starts interactive REPL
+  python -m agents.main "fix the bug in src/app.ts"
+  python -m agents.main --yolo "run all tests and fix failures"
+  python -m agents.main --plan "how would you refactor this?"
+  python -m agents.main --max-cost 0.50 --max-turns 20 "implement feature X"
+  python -m agents.main --resume
+  python -m agents.main  # starts interactive REPL
 """)
         sys.exit(0)
 

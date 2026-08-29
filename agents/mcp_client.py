@@ -148,7 +148,7 @@ class McpConnection:
         await self._send_request("initialize", {
             "protocolVersion": "2024-11-05",
             "capabilities": {},
-            "clientInfo": {"name": "mini-claude", "version": "1.0.0"},
+            "clientInfo": {"name": "evoshell", "version": "1.0.0"},
         })
         # 初始化请求成功后，按 MCP 协议发送 initialized 通知。
         self._send_notification("notifications/initialized")
